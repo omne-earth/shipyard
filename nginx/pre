@@ -1,0 +1,4 @@
+#!/bin/bash
+set -ueox pipefail
+sudo sed -i '/net.ipv4.ip_unprivileged_port_start/d' /etc/sysctl.conf
+sudo echo "net.ipv4.ip_unprivileged_port_start=80" | sudo tee -a /etc/sysctl.conf

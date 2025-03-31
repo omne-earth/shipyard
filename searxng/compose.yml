@@ -1,0 +1,31 @@
+services:
+  searxng:
+    container_name: searxng
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    networks:
+      - bridge
+    ports:
+      - "4000:8080"
+    volumes:
+      - /omniverse/pods/persistence/searxng:/etc/searxng:z
+    environment:
+      - SEARXNG_SECRET
+      - SEARXNG_REDIS_URL
+      - SEARXNG_STATIC_USE_HASH=true
+      - SEARXNG_IMAGE_PROXY=true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+networks:
+  bridge:
+    driver: bridge

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -ueox pipefail
+RED="/omniverse/pods/red/"
+up "ollama"
+up "valkey"
+up "searxng"
+up "openwebui"

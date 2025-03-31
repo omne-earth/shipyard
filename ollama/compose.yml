@@ -1,0 +1,29 @@
+services:
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    devices:
+      - nvidia.com/gpu=all
+    networks:
+      - bridge
+    volumes:
+      - /omniverse/pods/persistence/ollama:/root/.ollama:z
+    ports:
+      - 11434:11434
+    environment:
+      - OLLAMA_KEEP_ALIVE=-1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  bridge:
+    driver: bridge
+    
+volumes:
+  ollama: {}

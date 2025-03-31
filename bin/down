@@ -1,0 +1,4 @@
+#!/bin/bash
+set -ueox pipefail
+THIS_POD="/omniverse/pods/red/${1///}"
+podman compose -f "${THIS_POD}/compose.yml" down

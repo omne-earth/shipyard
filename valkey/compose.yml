@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  valkey:
+    image: docker.io/valkey/valkey:8-alpine
+    container_name: valkey
+    restart: unless-stopped
+    command: valkey-server --save 30 1 --loglevel warning
+    networks:
+      - bridge
+    volumes:
+      - /omniverse/pods/persistence/valkey:/data:z
+    ports:
+      - 6378:6379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+networks:
+  bridge:
+    driver: bridge
+
+volumes:
+  valkey: {}

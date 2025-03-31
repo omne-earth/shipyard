@@ -1,0 +1,8 @@
+https://openwebui.com/t/constliakos/web_search
+
+https://docs.openwebui.com/features/plugin/tools/
+
+https://docs.openwebui.com/features/plugin/functions/
+
+
+docker run -d --network local-rag -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
