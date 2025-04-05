@@ -1,0 +1,10 @@
+services:
+  debug:
+    image: fedora:latest
+    container_name: debug
+    stdin_open: true
+    tty: true
+
+networks:
+  nginx_bridge:
+    external: true

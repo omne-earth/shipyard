@@ -4,23 +4,20 @@ services:
     container_name: openwebui
     restart: unless-stopped
     networks:
-      - nginx_bridge
+      - bridge
     volumes:
       - $PERSISTENCE/openwebui:/app/backend/data:z
     ports:
       - 8080:8080
     environment:
-      - WEBUI_URL=http://0.0.0.0:8080
-      - OLLAMA_BASE_URL=http://ollama:11434
       - ENABLE_RAG_WEB_SEARCH=True
       - RAG_WEB_SEARCH_ENGINE=searxng
       - RAG_WEB_SEARCH_RESULT_COUNT=10
       - RAG_WEB_SEARCH_CONCURRENT_REQUESTS=30
-      - SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>
-
+      - SEARXNG_QUERY_URL=http://searxng:4000/search?q=<query>
 networks:
-  nginx_bridge:
-    external: true
+  bridge:
+    driver: bridge
     
 volumes:
   openwebui: {}

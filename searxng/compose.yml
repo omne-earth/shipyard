@@ -4,11 +4,13 @@ services:
     image: docker.io/searxng/searxng:latest
     restart: unless-stopped
     networks:
-      - bridge
+      - nginx_bridge
+    expose:
+      - 8080
     ports:
-      - "4000:8080"
+      - 8000:8080
     volumes:
-      - /omniverse/pods/persistence/searxng:/etc/searxng:z
+      - $PERSISTENCE/searxng:/etc/searxng:z
     environment:
       - SEARXNG_SECRET
       - SEARXNG_REDIS_URL
@@ -27,5 +29,5 @@ services:
         max-file: "1"
 
 networks:
-  bridge:
-    driver: bridge
+  nginx_bridge:
+    external: true

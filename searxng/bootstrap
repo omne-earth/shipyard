@@ -1,10 +1,14 @@
 #!/bin/bash
 set -ueox pipefail
 SEARXNG_HOME="$(dirname $(realpath $0))"
-SEARXNG_PERSISTENCE="/omniverse/pods/persistence/searxng"
+SHIPYARD="$(dirname $SEARXNG_HOME)"
+ENV="${SHIPYARD}/${HOSTNAME}.env"
+source "$ENV"
+SEARXNG_PERSISTENCE="$PERSISTENCE/searxng"
 mkdir -p "${SEARXNG_PERSISTENCE}"
 cp --force "${SEARXNG_HOME}/settings.yml.template" "${SEARXNG_PERSISTENCE}/settings.yml"
+cp --force "${SEARXNG_HOME}/limiter.toml.template" "${SEARXNG_PERSISTENCE}/limiter.toml"
 RANDOM_HEX_32=$(openssl rand -hex 32)
 sed -i "s/SEARXNG_SECRET_TEMPLATE/${RANDOM_HEX_32}/g" "${SEARXNG_PERSISTENCE}/settings.yml"
-VALKEY_REDIS_URL="redis:\/\/10.1.0.5:6378\/0"
+VALKEY_REDIS_URL="redis:\/\/valkey:6379\/0"
 sed -i "s/SEARXNG_REDIS_URL_TEMPLATE/${VALKEY_REDIS_URL}/g" "${SEARXNG_PERSISTENCE}/settings.yml"

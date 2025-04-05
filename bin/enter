@@ -1,6 +1,4 @@
 #!/bin/bash
 set -ueox pipefail
 POD="${1///}"
-RED="/omniverse/pods/red"
 podman exec -it "${POD}" /bin/sh
-

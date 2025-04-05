@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ueox pipefail
-RED="/omniverse/pods/red/"
+
+up "nginx"
 up "ollama"
 up "valkey"
 up "searxng"

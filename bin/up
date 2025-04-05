@@ -1,13 +1,15 @@
 #!/bin/bash
 set -ueox pipefail
-THIS_POD="/omniverse/pods/red/${1///}"
+source ".env"
+THIS_POD="${SHIPYARD}/${1///}"
+
 if [[ -e "${THIS_POD}/pre" ]]; then
     /bin/bash -c "${THIS_POD}/pre"
 fi
 if [[ -e "${THIS_POD}/bootstrap" ]]; then
     /bin/bash -c "${THIS_POD}/bootstrap"
 fi
-podman compose -f "${THIS_POD}/compose.yml" up -d
+podman compose --env-file "${ENV}" -f "${THIS_POD}/compose.yml" up -d 
 if [[ -e "${THIS_POD}/post" ]]; then
     /bin/bash -c "${THIS_POD}/post"
 fi

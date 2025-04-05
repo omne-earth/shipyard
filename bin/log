@@ -1,6 +1,5 @@
 #!/bin/bash
 set -ueox pipefail
 POD="${1///}"
-RED="/omniverse/pods/red"
-cd "${RED}/${POD}" && podman logs -f "${POD}" && cd "${HOME}"
+podman logs -f "${POD}"
 
